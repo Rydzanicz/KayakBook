@@ -1,10 +1,7 @@
 <header>
-  <div class="logo" (click)="navigateToShop()" style="cursor: pointer;">
+  <div class="logo" (click)="navigateToBody()" style="cursor: pointer;">
     <span class="material-icons">home</span>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </div>
-  <div class="shop-name">Domowe Rękodzieło</div>
-  <div class="cart" (click)="navigateToCart()" style="cursor: pointer; position: relative;">
-    <span class="material-icons">shopping_cart</span>
-    <span class="cart-count" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
-  </div>
+  <div class="shop-name">KAJAKI lublin.pl</div>
 </header>

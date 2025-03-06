@@ -1,1 +1,116 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto Condensed', sans-serif;
+  background-color: #ffffff;
+  color: #000000;
+  line-height: 1.8;
+}
+
+header {
+  background-color: #bc0a0a;
+  padding: 20px;
+  text-align: center;
+  font-size: 2.5rem;
+  color: #ffffff;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  border-bottom: 2px solid #a10909;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+main {
+  padding: 60px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: justify;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+main h1 {
+  font-size: 3.5rem;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  color: #bc0a0a;
+  text-align: center;
+  font-family: 'Anton', sans-serif;
+}
+
+main h2,
+main h3 {
+  color: #bc0a0a;
+}
+
+main p {
+  font-size: 1.2rem;
+  color: #000000;
+}
+
+main a {
+  color: #bc0a0a;
+  text-decoration: none;
+  font-weight: bold;
+  border-bottom: 1px solid #bc0a0a;
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+main a:hover {
+  color: #000000;
+  border-bottom: 1px solid #000000;
+}
+
+button {
+  background-color: #ffffff;
+  color: #bc0a0a;
+  border: 2px solid #bc0a0a;
+  padding: 10px 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  margin-top: 20px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #bc0a0a;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+footer {
+  background-color: #bc0a0a;
+  border-top: 2px solid #a10909;
+  padding: 20px;
+  text-align: center;
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+hr {
+  border: none;
+  border-top: 2px solid #bc0a0a;
+  margin: 40px 0;
+}
+
+img {
+  max-width: 100%;
+  border: 3px solid #bc0a0a;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+ul {
+  list-style: square;
+  padding-left: 20px;
+}
+
+ul li {
+  font-size: 1.2rem;
+  color: #000000;
+  margin-bottom: 10px;
+}

@@ -12,7 +12,6 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  cartItemCount: number = 0;
   isBrowser: boolean;
   private routerSubscription: Subscription | null = null;
 
@@ -22,43 +21,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.isBrowser) {
-      this.loadCartItemCount();
 
-      window.addEventListener('storage', this.handleStorageEvent);
 
-      this.routerSubscription = this.router.events.subscribe((event) => {
-        if (event instanceof NavigationEnd) {
-          this.loadCartItemCount();
-        }
-      });
     }
   }
 
   ngOnDestroy(): void {
     if (this.isBrowser) {
-      window.removeEventListener('storage', this.handleStorageEvent);
       this.routerSubscription?.unsubscribe();
     }
   }
 
-  loadCartItemCount(): void {
-    if (this.isBrowser) {
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      this.cartItemCount = cart.reduce((total: number, item: any) => total + item.quantity, 0);
-    }
-  }
-
-  private handleStorageEvent = (event: StorageEvent): void => {
-    if (event.key === 'cart') {
-      this.loadCartItemCount();
-    }
-  };
-
-  navigateToShop() {
-    this.router.navigate(['/shop']);
-  }
-
-  navigateToCart() {
-    this.router.navigate(['/cart']);
+  navigateToBody() {
+    this.router.navigate(['/body']);
   }
 }
