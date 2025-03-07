@@ -4,12 +4,14 @@ import {BodyComponent} from './body/body.component';
 import {AboutComponent} from './about/about.component';
 import {TermsComponent} from './terms/terms.component';
 import {ContactComponent} from './contact/contact.component';
+import {TraceComponent} from './trace/trace.component';
 
 export const routes: Routes = [
   {path: '', component: BodyComponent},
   {path: 'about', component: AboutComponent},
   {path: 'contact', component: ContactComponent},
   {path: 'terms', component: TermsComponent},
+  {path: 'trace/:id', component: TraceComponent},
   {path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 

@@ -14,48 +14,48 @@
   text-align: center;
 }
 
-.image {
-  max-width: 50%;
-  height: auto;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+.container {
+  text-align: center;
+  margin-top: 50px;
 }
 
-.title {
-  font-size: 22px;
-  font-weight: bold;
-  margin-bottom: 30px;
-}
-
-.routes {
+.hours {
   display: flex;
-  flex-direction: row;
-  gap: 10px;
   justify-content: center;
   flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
 }
 
-.route.btn {
+.hour {
+  display: inline-block;
   background-color: #e40230;
-  border: none;
-  color: #ffffff;
-  padding: 10px 20px;
-  margin: 0;
-  font-size: 16px;
-  font-weight: bold;
+  padding: 8px 15px;
   border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  text-align: center;
-  white-space: nowrap;
+  color: #ffffff;
+  font-weight: bold;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.route.btn:hover {
+.hour:hover {
+  background-color: #bc0a0a;
+  cursor: default;
+}
+
+.back-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #e40230;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.back-btn:hover {
   background-color: #bc0a0a;
   transform: scale(1.05);
-}
-
-.route.btn:active {
-  background-color: #900202;
 }

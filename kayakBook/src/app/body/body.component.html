@@ -1,11 +1,16 @@
 <div class="container">
   <div class="content">
-    <img src="assets/auto.png" alt="Auto" class="image" />
-    <p>Zapraszamy na przygodę i możliwość wybrania jednej z trzech tras!</p>
+    <img src="assets/auto.png" alt="Auto" class="image"/>
+    <p class="title">Zapraszamy na przygodę i możliwość wybrania jednej z trzech tras!</p>
+
     <div class="routes">
-      <button class="route">Trasa A: Prawiedniki - Z. Zemborzycki</button>
-      <button class="route">Trasa B: Osmolice - Prawiedniki</button>
-      <button class="route">Trasa C: Osmolice - Z. Zemborzycki</button>
+      <button
+        class="route btn"
+        *ngFor="let trace of traces"
+        [routerLink]="['/trace', trace.id]"
+        [attr.aria-label]="'Navigate to route ' + trace.id">
+        Trasa  {{ trace.description }}
+      </button>
     </div>
   </div>
 </div>

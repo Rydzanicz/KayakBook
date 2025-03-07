@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="content">
+  <h2>Informacje o trasie</h2>
+  <p>Wybrano trasę o ID: <strong>{{ traceId }}</strong></p>
+  <p><strong>Dostępne godziny:</strong></p>
+
+  <div class="hours">
+    <span *ngFor="let hour of availableHours" class="hour">
+      {{ hour }}
+    </span>
+  </div>
+
+  <a routerLink="/" class="back-btn">Wróć do strony głównej</a>
+</div>
+</div>
