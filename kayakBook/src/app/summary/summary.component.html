@@ -1,0 +1,26 @@
+<div class="container">
+  <button class="back-btn" [routerLink]="['/kajak', traceId, selectedHour]" [state]="{
+    traceId: traceId,
+    selectedHour: selectedHour,
+    selectedKayaks: selectedKayaks,
+    kayaks: kayaks
+  }">
+    <span class="material-icons">arrow_back</span>
+  </button>
+
+  <div class="content">
+    <h1>Podsumowanie</h1>
+    <p><strong>Trasa:</strong> {{ traceId }}</p>
+    <p><strong>Godzina:</strong> {{ selectedHour }}</p>
+
+    <div class="kayak-summary">
+      <h4>Wybrane kajaki:</h4>
+      <ul>
+        <li *ngFor="let kayak of selectedKayaks">
+          {{ kayaks[kayak.type].name }}: {{ kayak.count }} x {{ kayaks[kayak.type].price || 0 }} zł
+        </li>
+      </ul>
+      <p><strong>Całkowita cena:</strong> {{ calculateTotalPrice() }} zł</p>
+    </div>
+  </div>
+</div>

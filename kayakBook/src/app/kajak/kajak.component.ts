@@ -5,10 +5,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-kajak',
   templateUrl: './kajak.component.html',
-  imports: [
-    CommonModule,
-    RouterLink
-  ],
+  imports: [CommonModule, RouterLink],
   styleUrls: ['./kajak.component.css']
 })
 export class KajakComponent implements OnInit {
@@ -34,12 +31,12 @@ export class KajakComponent implements OnInit {
   selectedKayaks: { type: 'single' | 'double' | 'family'; count: number }[] = [];
   maxKayaks = 20;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.traceId = params['id'];
-      this.selectedHour = params['hour'];
+    this.route.params.subscribe((params) => {
+      this.traceId = params['id'] ?? '';
+      this.selectedHour = params['hour'] ?? '';
     });
   }
 
@@ -51,7 +48,7 @@ export class KajakComponent implements OnInit {
       return;
     }
 
-    const kayakEntry = this.selectedKayaks.find(kayak => kayak.type === type);
+    const kayakEntry = this.selectedKayaks.find((kayak) => kayak.type === type);
 
     if (kayakEntry) {
       kayakEntry.count++;
@@ -61,12 +58,12 @@ export class KajakComponent implements OnInit {
   }
 
   removeKayak(type: 'single' | 'double' | 'family'): void {
-    const kayakEntry = this.selectedKayaks.find(kayak => kayak.type === type);
+    const kayakEntry = this.selectedKayaks.find((kayak) => kayak.type === type);
 
     if (kayakEntry && kayakEntry.count > 0) {
       kayakEntry.count--;
       if (kayakEntry.count === 0) {
-        this.selectedKayaks = this.selectedKayaks.filter(kayak => kayak.type !== type);
+        this.selectedKayaks = this.selectedKayaks.filter((kayak) => kayak.type !== type);
       }
     }
   }
@@ -74,7 +71,7 @@ export class KajakComponent implements OnInit {
   calculateTotalPrice(): number {
     return this.selectedKayaks.reduce((total, kayak) => {
       const kayakInfo = this.kayaks[kayak.type];
-      return total + (kayak.count * kayakInfo.price);
+      return total + (kayakInfo.price * kayak.count);
     }, 0);
   }
 }

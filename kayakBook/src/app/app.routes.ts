@@ -6,6 +6,7 @@ import {TermsComponent} from './terms/terms.component';
 import {ContactComponent} from './contact/contact.component';
 import {TraceComponent} from './trace/trace.component';
 import {KajakComponent} from './kajak/kajak.component';
+import {SummaryComponent} from './summary/summary.component';
 
 export const routes: Routes = [
   {path: '', component: BodyComponent},
@@ -14,6 +15,7 @@ export const routes: Routes = [
   {path: 'terms', component: TermsComponent},
   {path: 'trace/:id', component: TraceComponent},
   {path: 'kajak/:id/:hour', component: KajakComponent},
+  {path: 'summary', component: SummaryComponent},
   {path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 

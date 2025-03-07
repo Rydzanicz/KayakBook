@@ -6,15 +6,17 @@
   <div class="content">
     <h3>Wybór kajaka dla trasy: <strong>{{ traceId }}</strong></h3>
     <p>Wybrana godzina: <strong>{{ selectedHour }}</strong></p>
+
     <div class="summary">
       <h4>Podsumowanie wybranych kajaków:</h4>
       <ul>
         <li *ngFor="let kayak of selectedKayaks">
-          {{ kayaks[kayak.type].name }}: {{ kayak.count }} x {{ kayaks[kayak.type].price }} zł
+          {{ kayaks[kayak.type].name }}: {{ kayak.count }} x {{ kayaks[kayak.type].price || 0 }} zł
         </li>
       </ul>
       <p><strong>Całkowita cena:</strong> {{ calculateTotalPrice() }} zł</p>
     </div>
+
     <div class="kayaks">
       <div *ngFor="let kayakKey of kayakKeys" class="kayak-card">
         <h4>{{ kayaks[kayakKey].name }}</h4>
@@ -24,6 +26,15 @@
           <button class="remove-btn" (click)="removeKayak(kayakKey)">Usuń</button>
         </div>
       </div>
+    </div>
+
+    <div class="actions">
+      <button class="reserve-summary-btn" [routerLink]="['/summary']" [state]="{
+        traceId: traceId,
+        selectedHour: selectedHour,
+        selectedKayaks: selectedKayaks,
+        kayaks: kayaks
+      }">Przejdź do podsumowania</button>
     </div>
   </div>
 </div>
