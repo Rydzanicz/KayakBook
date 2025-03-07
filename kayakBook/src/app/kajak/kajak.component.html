@@ -1,25 +1,27 @@
 <div class="container">
+  <button class="back-btn" [routerLink]="['/trace', traceId]">
+    <span class="material-icons">arrow_back</span>
+  </button>
+
   <div class="content">
-    <div class="kajak-container">
-      <h3>Wybór kajaka dla trasy: <strong>{{ traceId }}</strong></h3>
-      <p>Wybrana godzina: <strong>{{ selectedHour }}</strong></p>
-      <div class="summary">
-        <h4>Podsumowanie wybranych kajaków:</h4>
-        <ul>
-          <li *ngFor="let kayak of selectedKayaks">
-            {{ kayaks[kayak.type].name }}: {{ kayak.count }} x {{ kayaks[kayak.type].price }} zł
-          </li>
-        </ul>
-        <p><strong>Całkowita cena:</strong> {{ calculateTotalPrice() }} zł</p>
-      </div>
-      <div class="kayaks">
-        <div *ngFor="let kayakKey of kayakKeys" class="kayak-card">
-          <h4>{{ kayaks[kayakKey].name }}</h4>
-          <p><strong>Cena:</strong> {{ kayaks[kayakKey].price }} zł</p>
-          <div class="actions">
-            <button class="add-btn" (click)="addKayak(kayakKey)">Dodaj</button>
-            <button class="remove-btn" (click)="removeKayak(kayakKey)">Usuń</button>
-          </div>
+    <h3>Wybór kajaka dla trasy: <strong>{{ traceId }}</strong></h3>
+    <p>Wybrana godzina: <strong>{{ selectedHour }}</strong></p>
+    <div class="summary">
+      <h4>Podsumowanie wybranych kajaków:</h4>
+      <ul>
+        <li *ngFor="let kayak of selectedKayaks">
+          {{ kayaks[kayak.type].name }}: {{ kayak.count }} x {{ kayaks[kayak.type].price }} zł
+        </li>
+      </ul>
+      <p><strong>Całkowita cena:</strong> {{ calculateTotalPrice() }} zł</p>
+    </div>
+    <div class="kayaks">
+      <div *ngFor="let kayakKey of kayakKeys" class="kayak-card">
+        <h4>{{ kayaks[kayakKey].name }}</h4>
+        <p><strong>Cena:</strong> {{ kayaks[kayakKey].price }} zł</p>
+        <div class="actions">
+          <button class="add-btn" (click)="addKayak(kayakKey)">Dodaj</button>
+          <button class="remove-btn" (click)="removeKayak(kayakKey)">Usuń</button>
         </div>
       </div>
     </div>

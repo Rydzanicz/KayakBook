@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-kajak',
   templateUrl: './kajak.component.html',
   imports: [
-    CommonModule
+    CommonModule,
+    RouterLink
   ],
   styleUrls: ['./kajak.component.css']
 })

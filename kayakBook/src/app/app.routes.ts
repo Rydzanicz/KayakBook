@@ -13,7 +13,7 @@ export const routes: Routes = [
   {path: 'contact', component: ContactComponent},
   {path: 'terms', component: TermsComponent},
   {path: 'trace/:id', component: TraceComponent},
-  { path: 'kajak/:id/:hour', component: KajakComponent },
+  {path: 'kajak/:id/:hour', component: KajakComponent},
   {path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 
