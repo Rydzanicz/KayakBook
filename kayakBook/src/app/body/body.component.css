@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #79202e, #e40230);
+  border-radius: 10px;
+  width: 88%;
+  height: 80vh;
+  margin: 5vh auto;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+  color: #ffffff;
+  text-align: center;
+}
+
+.image {
+  max-width: 50%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+}
+
+.content p {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.routes .route {
+  background-color: #e40230;
+  border: none;
+  color: #ffffff;
+  padding: 10px 20px;
+  margin: 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.routes .route:hover {
+  background-color: #bc0a0a;
+  transform: scale(1.05);
+}
+
+.routes .route:active {
+  background-color: #900202;
+}
