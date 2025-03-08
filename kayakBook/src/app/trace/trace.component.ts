@@ -50,7 +50,6 @@ export class TraceComponent implements OnInit {
     }
 
     const now = new Date();
-    now.setHours(10, 0, 0, 0);
     const selectedDay = new Date(this.selectedDate);
     if (now.toDateString() === selectedDay.toDateString()) {
       const cutoffTime = new Date(now.getTime() + 4 * 60 * 60 * 1000);

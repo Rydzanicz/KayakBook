@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-import { KayakBookingService } from '../services/kayak-booking.service';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {Component} from '@angular/core';
+import {Router, RouterLink} from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
+import {KayakBookingService} from '../services/kayak-booking.service';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-summary',
@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 export class SummaryComponent {
   traceId: string = '';
   selectedHour: string = '';
+  selectedDate: string = '';
   selectedKayaks: { type: string; count: number }[] = [];
   kayaks: { [key: string]: { name: string; price: number } } = {};
   buyerName: string = '';
@@ -26,14 +27,20 @@ export class SummaryComponent {
     const state = navigation?.extras.state as {
       traceId?: string;
       selectedHour?: string;
+      selectedDate?: string;
       selectedKayaks?: { type: string; count: number }[];
       kayaks?: { [key: string]: { name: string; price: number } };
     };
 
-    this.traceId = state?.traceId ?? '';
-    this.selectedHour = state?.selectedHour ?? '';
+    this.traceId = state?.traceId ?? '(Nieznana trasa)';
+    this.selectedHour = state?.selectedHour ?? '(Nie wybrano godziny)';
+    this.selectedDate = state?.selectedDate ?? '(Nie wybrano daty)';
     this.selectedKayaks = state?.selectedKayaks ?? [];
     this.kayaks = state?.kayaks ?? {};
+
+    if (!state?.traceId || !state?.selectedDate || !state?.selectedHour) {
+      console.warn('Brak wymaganych danych w state. Użytkownik może zostać cofnięty.');
+    }
   }
 
   calculateTotalPrice(): number {
@@ -48,12 +55,18 @@ export class SummaryComponent {
       alert('Proszę uzupełnić wszystkie wymagane pola.');
       return;
     }
+    const totalKayaks = this.selectedKayaks.reduce((total, kayak) => total + kayak.count, 0);
+    if (totalKayaks <= 0) {
+      alert('Proszę wybrać co najmniej jeden kajak.');
+      return;
+    }
 
     const orderData = {
       buyerName: this.buyerName,
       buyerAddressEmail: this.buyerAddressEmail,
       buyerPhone: this.buyerPhone,
-      orderDate: new Date().toISOString(),
+      traceId: this.traceId,
+      orderDate: `${this.selectedDate} ${this.selectedHour}:00`,
       kayakOne: this.selectedKayaks.find((kayak) => kayak.type === 'single')?.count ?? 0,
       kayakTwo: this.selectedKayaks.find((kayak) => kayak.type === 'double')?.count ?? 0,
       kayakOne_Two: this.selectedKayaks.find((kayak) => kayak.type === 'family')?.count ?? 0,
@@ -61,11 +74,9 @@ export class SummaryComponent {
 
     this.kayakBookingService.sendBuyerData(orderData).subscribe({
       next: response => {
-        console.log('Zamówienie zapisane pomyślnie:', response);
         alert('Zamówienie zostało zapisane!');
       },
       error: error => {
-        console.error('Błąd przy zapisywaniu zamówienia:', error);
         alert('Wystąpił błąd przy zapisywaniu zamówienia.');
       }
     });

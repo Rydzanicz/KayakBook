@@ -44,7 +44,6 @@ export class KajakComponent implements OnInit {
 
     this.route.queryParams.subscribe((queryParams) => {
       this.selectedDate = queryParams['selectedDate'] || '';
-      console.log('Received selectedDate:', this.selectedDate);
     });
   }
 

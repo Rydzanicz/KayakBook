@@ -1,16 +1,20 @@
 <div class="container">
-  <button class="back-btn" [routerLink]="['/kajak', traceId, selectedHour]" [state]="{
-    traceId: traceId,
-    selectedHour: selectedHour,
-    selectedKayaks: selectedKayaks,
-    kayaks: kayaks
-  }">
+  <button
+    class="back-btn"
+    [routerLink]="['/kajak', traceId, selectedHour]"
+    [state]="{
+      traceId: traceId,
+      selectedHour: selectedHour,
+      selectedKayaks: selectedKayaks,
+      kayaks: kayaks
+    }">
     <span class="material-icons">arrow_back</span>
   </button>
 
   <div class="content">
     <h1>Podsumowanie</h1>
     <p><strong>Trasa:</strong> {{ traceId }}</p>
+    <p><strong>Wybrana data:</strong> {{ selectedDate }}</p>
     <p><strong>Godzina:</strong> {{ selectedHour }}</p>
 
     <div class="kayak-summary">
@@ -23,6 +27,7 @@
       <p><strong>Całkowita cena:</strong> {{ calculateTotalPrice() }} zł</p>
     </div>
   </div>
+
   <div class="buyer-form">
     <h4>Podaj dane kupującego:</h4>
     <form #buyerForm="ngForm" novalidate>
@@ -40,6 +45,7 @@
           Imię i nazwisko jest wymagane.
         </div>
       </div>
+
       <div>
         <label for="buyerEmail">Email:</label>
         <input
@@ -56,6 +62,7 @@
           <div *ngIf="buyerEmailField.errors?.['email']">Podaj poprawny adres email.</div>
         </div>
       </div>
+
       <div>
         <label for="buyerPhone">Telefon:</label>
         <input
