@@ -53,9 +53,10 @@ export class KajakComponent implements OnInit {
   addKayak(type: 'single' | 'double' | 'family'): void {
     const totalSeats = this.calculateTotalSeats();
     const kayakInfo = this.kayaks[type];
+    const maxKayaks = this.isWorkingDay(this.selectedDate) ? 8 : this.maxSeats;
 
-    if (totalSeats + kayakInfo.seats > this.maxSeats) {
-      alert(`Nie możesz przekroczyć limitu ${this.maxSeats} miejsc.`);
+    if (totalSeats + kayakInfo.seats > maxKayaks) {
+      alert(`Nie możesz przekroczyć limitu ${maxKayaks} miejsc.`);
       return;
     }
 
@@ -76,6 +77,12 @@ export class KajakComponent implements OnInit {
     } else {
       this.selectedKayaks.push({type, count: 1});
     }
+  }
+
+  private isWorkingDay(date: string): boolean {
+    const parsedDate = new Date(date);
+    const day = parsedDate.getDay();
+    return day >= 1 && day <= 5;
   }
 
   removeKayak(type: 'single' | 'double' | 'family'): void {
