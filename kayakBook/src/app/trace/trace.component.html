@@ -6,13 +6,24 @@
     <h2>Informacje o trasie</h2>
     <p>Wybrano trasę o ID: <strong>{{ traceId }}</strong></p>
 
+    <div>
+      <label for="datePicker"><strong>Wybierz datę:</strong></label>
+      <input
+        id="datePicker"
+        type="date"
+        [min]="minDate()"
+        [value]="selectedDate"
+        (change)="onDateChange($event)">
+    </div>
+
     <p><strong>Dostępne godziny:</strong></p>
     <div class="hours">
-      <a *ngFor="let hour of availableHours"
-         class="hour"
-         [routerLink]="['/kajak', traceId, hour]">
+      <button
+        *ngFor="let hour of filteredHours"
+        class="hour"
+        (click)="goToKajak(hour)">
         {{ hour }}
-      </a>
+      </button>
     </div>
   </div>
 </div>

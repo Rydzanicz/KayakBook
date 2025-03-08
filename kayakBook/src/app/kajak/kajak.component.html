@@ -5,7 +5,8 @@
 
   <div class="content">
     <h3>Wybór kajaka dla trasy: <strong>{{ traceId }}</strong></h3>
-    <p>Wybrana godzina: <strong>{{ selectedHour }}</strong></p>
+    <p><strong>Wybrana data:</strong> {{ selectedDate }}</p>
+    <p><strong>Wybrana godzina:</strong> {{ selectedHour }}</p>
 
     <div class="summary">
       <h4>Podsumowanie wybranych kajaków:</h4>
@@ -32,9 +33,11 @@
       <button class="reserve-summary-btn" [routerLink]="['/summary']" [state]="{
         traceId: traceId,
         selectedHour: selectedHour,
+        selectedDate: selectedDate,
         selectedKayaks: selectedKayaks,
         kayaks: kayaks
-      }">Przejdź do podsumowania</button>
+      }">Przejdź do podsumowania
+      </button>
     </div>
   </div>
 </div>

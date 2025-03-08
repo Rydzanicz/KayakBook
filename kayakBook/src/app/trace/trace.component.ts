@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {CommonModule} from '@angular/common';
 
 @Component({
@@ -14,6 +14,8 @@ import {CommonModule} from '@angular/common';
 export class TraceComponent implements OnInit {
   traceId: string = '';
   availableHours: string[] = [];
+  filteredHours: string[] = [];
+  selectedDate: string = '';
 
   traceHours: Record<string, string[]> = {
     Prawiedniki_Zemborzycki: ['9:00', '10:00', '12:30', '14:00', '16:00'],
@@ -21,7 +23,7 @@ export class TraceComponent implements OnInit {
     Osmolice_Zemborzycki: ['9:00', '10:00', '12:30', '14:00', '16:00']
   };
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -33,5 +35,56 @@ export class TraceComponent implements OnInit {
 
   getHoursForTrace(traceId: string): string[] {
     return this.traceHours[traceId] || [];
+  }
+
+  onDateChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.selectedDate = input.value;
+    this.filterHours();
+  }
+
+  filterHours(): void {
+    if (!this.selectedDate) {
+      this.filteredHours = [];
+      return;
+    }
+
+    const now = new Date();
+    now.setHours(10, 0, 0, 0);
+    const selectedDay = new Date(this.selectedDate);
+    if (now.toDateString() === selectedDay.toDateString()) {
+      const cutoffTime = new Date(now.getTime() + 4 * 60 * 60 * 1000);
+
+      this.filteredHours = this.availableHours.filter(hour => {
+        const [hourStr, minuteStr] = hour.split(':');
+        const hourTime = parseInt(hourStr, 10);
+        const minuteTime = parseInt(minuteStr, 10);
+
+        const hourDate = new Date();
+        hourDate.setHours(hourTime, minuteTime, 0, 0);
+        return hourDate > cutoffTime;
+      });
+
+    } else {
+      this.filteredHours = [...this.availableHours];
+    }
+  }
+
+  goToKajak(hour: string): void {
+    if (!this.selectedDate) {
+      alert('Najpierw wybierz datę.');
+      return;
+    }
+    this.router.navigate(['/kajak', this.traceId, hour], {
+      queryParams: {selectedDate: this.selectedDate}
+    });
+  }
+
+  minDate(): string {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 }

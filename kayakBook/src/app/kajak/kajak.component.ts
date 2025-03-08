@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-kajak',
@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 export class KajakComponent implements OnInit {
   traceId: string = '';
   selectedHour: string = '';
+  selectedDate: string = '';
 
   kayakKeys = ['single', 'double', 'family'] as const;
   kayaks: Record<typeof this.kayakKeys[number], { name: string; price: number }> = {
@@ -31,12 +32,19 @@ export class KajakComponent implements OnInit {
   selectedKayaks: { type: 'single' | 'double' | 'family'; count: number }[] = [];
   maxKayaks = 20;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) {
+  }
+
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.traceId = params['id'] ?? '';
       this.selectedHour = params['hour'] ?? '';
+    });
+
+    this.route.queryParams.subscribe((queryParams) => {
+      this.selectedDate = queryParams['selectedDate'] || '';
+      console.log('Received selectedDate:', this.selectedDate);
     });
   }
 
@@ -53,7 +61,7 @@ export class KajakComponent implements OnInit {
     if (kayakEntry) {
       kayakEntry.count++;
     } else {
-      this.selectedKayaks.push({ type, count: 1 });
+      this.selectedKayaks.push({type, count: 1});
     }
   }
 
