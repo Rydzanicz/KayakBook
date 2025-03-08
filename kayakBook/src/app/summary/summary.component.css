@@ -123,3 +123,33 @@
 .reserve-btn:active {
   background-color: #3e8e41;
 }
+input.ng-invalid.ng-touched {
+  border-color: red;
+}
+
+input.ng-valid.ng-touched {
+  border-color: green;
+}
+
+.buyer-form div {
+  margin-bottom: 15px;
+}
+
+.buyer-form label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.buyer-form input {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #ccc;
+}
+
+.buyer-form input:focus {
+  border: 1px solid #e40230;
+}

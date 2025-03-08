@@ -23,8 +23,61 @@
       <p><strong>Całkowita cena:</strong> {{ calculateTotalPrice() }} zł</p>
     </div>
   </div>
-  <button class="reserve-btn" (click)="saveOrder()">
-    Zapisz zamówienie
-  </button>
-
+  <div class="buyer-form">
+    <h4>Podaj dane kupującego:</h4>
+    <form #buyerForm="ngForm" novalidate>
+      <div>
+        <label for="buyerName">Imię i nazwisko:</label>
+        <input
+          id="buyerName"
+          type="text"
+          [(ngModel)]="buyerName"
+          name="buyerName"
+          placeholder="Wpisz imię i nazwisko"
+          required
+          #buyerNameField="ngModel">
+        <div *ngIf="buyerNameField.invalid && buyerNameField.touched" style="color: red;">
+          Imię i nazwisko jest wymagane.
+        </div>
+      </div>
+      <div>
+        <label for="buyerEmail">Email:</label>
+        <input
+          id="buyerEmail"
+          type="email"
+          [(ngModel)]="buyerAddressEmail"
+          name="buyerAddressEmail"
+          placeholder="Wpisz email"
+          required
+          email
+          #buyerEmailField="ngModel">
+        <div *ngIf="buyerEmailField.invalid && buyerEmailField.touched" style="color: red;">
+          <div *ngIf="buyerEmailField.errors?.['required']">Email jest wymagany.</div>
+          <div *ngIf="buyerEmailField.errors?.['email']">Podaj poprawny adres email.</div>
+        </div>
+      </div>
+      <div>
+        <label for="buyerPhone">Telefon:</label>
+        <input
+          id="buyerPhone"
+          type="tel"
+          [(ngModel)]="buyerPhone"
+          name="buyerPhone"
+          placeholder="Wpisz numer telefonu"
+          required
+          pattern="^[0-9]{9,15}$"
+          #buyerPhoneField="ngModel">
+        <div *ngIf="buyerPhoneField.invalid && buyerPhoneField.touched" style="color: red;">
+          <div *ngIf="buyerPhoneField.errors?.['required']">Numer telefonu jest wymagany.</div>
+          <div *ngIf="buyerPhoneField.errors?.['pattern']">Podaj poprawny numer telefonu (9-15 cyfr).</div>
+        </div>
+      </div>
+      <button
+        class="reserve-btn"
+        [disabled]="buyerForm.invalid"
+        (click)="saveOrder()">
+        Zapisz zamówienie
+      </button>
+    </form>
+  </div>
 </div>

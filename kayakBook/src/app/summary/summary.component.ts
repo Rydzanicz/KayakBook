@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { KayakBookingService } from '../services/kayak-booking.service';
 import { CommonModule } from '@angular/common';
-import { KayakBookingService } from '../services/kayak-booking.service'; // Upewnij się, że ścieżka jest poprawna
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-summary',
+  standalone: true,
   templateUrl: './summary.component.html',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, FormsModule, HttpClientModule, RouterLink],
   styleUrls: ['./summary.component.css']
 })
 export class SummaryComponent {
@@ -14,6 +17,9 @@ export class SummaryComponent {
   selectedHour: string = '';
   selectedKayaks: { type: string; count: number }[] = [];
   kayaks: { [key: string]: { name: string; price: number } } = {};
+  buyerName: string = '';
+  buyerAddressEmail: string = '';
+  buyerPhone: string = '';
 
   constructor(private router: Router, private kayakBookingService: KayakBookingService) {
     const navigation = this.router.getCurrentNavigation();
@@ -38,14 +44,19 @@ export class SummaryComponent {
   }
 
   saveOrder(): void {
+    if (!this.buyerName || !this.buyerAddressEmail || !this.buyerPhone) {
+      alert('Proszę uzupełnić wszystkie wymagane pola.');
+      return;
+    }
+
     const orderData = {
-      buyerName: 'Example', // Przykładowa nazwa użytkownika (możesz dostosować)
-      buyerAddressEmail: 'example@example.com', // Przykładowy email (możesz dodać pola do formularza)
-      buyerPhone: '123456789', // Przykładowy numer telefonu
-      orderDate: new Date().toISOString(), // Aktualna data zamówienia
-      kayakOne: this.selectedKayaks.find(k => k.type === 'kayakOne')?.count || 0,
-      kayakTwo: this.selectedKayaks.find(k => k.type === 'kayakTwo')?.count || 0,
-      kayakOne_Two: this.selectedKayaks.find(k => k.type === 'kayakOne_Two')?.count || 0
+      buyerName: this.buyerName,
+      buyerAddressEmail: this.buyerAddressEmail,
+      buyerPhone: this.buyerPhone,
+      orderDate: new Date().toISOString(),
+      kayakOne: this.selectedKayaks.find((kayak) => kayak.type === 'single')?.count ?? 0,
+      kayakTwo: this.selectedKayaks.find((kayak) => kayak.type === 'double')?.count ?? 0,
+      kayakOne_Two: this.selectedKayaks.find((kayak) => kayak.type === 'family')?.count ?? 0,
     };
 
     this.kayakBookingService.sendBuyerData(orderData).subscribe({
