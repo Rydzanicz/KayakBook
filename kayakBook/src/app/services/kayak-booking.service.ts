@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {FutureTrip} from '../models/future-trip.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,8 @@ export class KayakBookingService {
   private apiKey =
     'VIGGO=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJWSUdHTyIsImlhdCI6MTczMzM5MTE2OCwiZXhwIjoxNzMzNDI3MTY4fQ.8QE--sghB1EU8u_bbmsETQ_RuY2W7P5HEbBo7twkyH8';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   sendBuyerData(buyerData: any): Observable<any> {
     const headers = new HttpHeaders({
@@ -22,5 +24,13 @@ export class KayakBookingService {
       headers,
       responseType: 'text' as 'json',
     });
+  }
+
+  getFutureTrips(): Observable<FutureTrip[]> {
+    const headers = new HttpHeaders({
+      'X-API-KEY': this.apiKey,
+    });
+
+    return this.http.get<FutureTrip[]>(`${this.apiUrl}/get-future-trips`, {headers});
   }
 }

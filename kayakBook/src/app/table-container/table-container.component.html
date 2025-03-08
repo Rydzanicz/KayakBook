@@ -1,0 +1,35 @@
+<div class="table-container">
+  <table>
+    <thead>
+    <tr>
+      <th (click)="sortData('orderId')">ID zamówienia</th>
+      <th (click)="sortData('name')">Imię i nazwisko</th>
+      <th (click)="sortData('email')">Email</th>
+      <th (click)="sortData('phone')">Telefon</th>
+      <th (click)="sortData('orderDate')">Data zamówienia</th>
+      <th (click)="sortData('kayakOne')">Kajak jednoosobowy</th>
+      <th (click)="sortData('kayakTwo')">Kajak dwuosobowy</th>
+      <th (click)="sortData('kayakOne_Two')">Łącznie</th>
+      <th (click)="sortData('emailSend')">Email wysłany</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngIf="data.length > 0">
+      <tr *ngFor="let row of data">
+        <td>{{ row.orderId }}</td>
+        <td>{{ row.name }}</td>
+        <td>{{ row.email }}</td>
+        <td>{{ row.phone }}</td>
+        <td>{{ row.orderDate }}</td>
+        <td>{{ row.kayakOne }}</td>
+        <td>{{ row.kayakTwo }}</td>
+        <td>{{ row.kayakOne_Two }}</td>
+        <td>{{ row.emailSend ? 'Tak' : 'Nie' }}</td>
+      </tr>
+    </ng-container>
+    <tr *ngIf="data.length === 0">
+      <td colspan="9" class="empty-row">Brak danych do wyświetlenia</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

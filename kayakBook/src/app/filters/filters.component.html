@@ -1,0 +1,35 @@
+<div class="filters-container">
+  <div class="form-group">
+    <label for="startDate">Data początkowa:</label>
+    <input
+      id="startDate"
+      type="date"
+      [(ngModel)]="startDate"
+      [max]="maxDate"
+      class="form-control"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="endDate">Data końcowa:</label>
+    <input
+      id="endDate"
+      type="date"
+      [(ngModel)]="endDate"
+      [max]="maxDate"
+      class="form-control"
+    />
+  </div>
+
+  <div class="form-group">
+    <label>
+      <input
+        type="checkbox"
+        [(ngModel)]="isPastRegistration"
+      />
+      Rejestracje z przeszłości
+    </label>
+  </div>
+
+  <button (click)="onFetchData()" class="fetch-button">Pobierz dane</button>
+</div>

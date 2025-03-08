@@ -1,0 +1,16 @@
+<div class="container">
+  <div *ngIf="isLoading" class="loading">
+    <p>Ładowanie danych...</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="error">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <app-filters
+    (filtersChanged)="applyFilters($event)"
+    (fetchData)="fetchFutureTrips()">
+  </app-filters>
+
+  <app-table-container *ngIf="filteredTrips.length > 0" [data]="filteredTrips"></app-table-container>
+</div>
