@@ -14,27 +14,30 @@ export class KajakComponent implements OnInit {
   selectedDate: string = '';
 
   kayakKeys = ['single', 'double', 'family'] as const;
-  kayaks: Record<typeof this.kayakKeys[number], { name: string; price: number }> = {
+  kayaks: Record<typeof this.kayakKeys[number], { name: string; price: number; seats: number }> = {
     single: {
       name: 'Kajak 1-osobowy',
       price: 30,
+      seats: 1,
     },
     double: {
       name: 'Kajak 2-osobowy',
       price: 50,
+      seats: 2,
     },
     family: {
       name: 'Kajak rodzinny (2+1)',
       price: 70,
+      seats: 3,
     },
   };
 
   selectedKayaks: { type: 'single' | 'double' | 'family'; count: number }[] = [];
-  maxKayaks = 20;
+  maxDouble: number = 8;
+  maxSeats: number = 16;
 
   constructor(private route: ActivatedRoute) {
   }
-
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -48,11 +51,22 @@ export class KajakComponent implements OnInit {
   }
 
   addKayak(type: 'single' | 'double' | 'family'): void {
-    const totalSelected = this.selectedKayaks.reduce((sum, kayak) => sum + kayak.count, 0);
+    const totalSeats = this.calculateTotalSeats();
+    const kayakInfo = this.kayaks[type];
 
-    if (totalSelected >= this.maxKayaks) {
-      alert('Nie możesz wybrać więcej niż 20 kajaków.');
+    if (totalSeats + kayakInfo.seats > this.maxSeats) {
+      alert(`Nie możesz przekroczyć limitu ${this.maxSeats} miejsc.`);
       return;
+    }
+
+    if (type === 'double') {
+      const doubleKayak = this.selectedKayaks.find((kayak) => kayak.type === 'double');
+      const doubleCount = doubleKayak ? doubleKayak.count : 0;
+
+      if (doubleCount + 1 > this.maxDouble) {
+        alert(`Nie możesz wybrać więcej niż ${this.maxDouble} kajaków "double".`);
+        return;
+      }
     }
 
     const kayakEntry = this.selectedKayaks.find((kayak) => kayak.type === type);
@@ -78,7 +92,14 @@ export class KajakComponent implements OnInit {
   calculateTotalPrice(): number {
     return this.selectedKayaks.reduce((total, kayak) => {
       const kayakInfo = this.kayaks[kayak.type];
-      return total + (kayakInfo.price * kayak.count);
+      return total + kayakInfo.price * kayak.count;
+    }, 0);
+  }
+
+  calculateTotalSeats(): number {
+    return this.selectedKayaks.reduce((total, kayak) => {
+      const kayakInfo = this.kayaks[kayak.type];
+      return total + kayak.count * kayakInfo.seats;
     }, 0);
   }
 }
