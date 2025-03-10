@@ -12,45 +12,79 @@ import {CommonModule} from '@angular/common';
   imports: [
     FiltersComponent,
     TableContainerComponent,
-    CommonModule
-  ]
+    CommonModule,
+    HttpClientModule,
+  ],
 })
 export class AdminComponent {
-  futureTrips: FutureTrip[] = [];
-  filteredTrips: FutureTrip[] = [];
-  isLoading = false;
-  errorMessage: string | null = null;
+  tableData: any[] = [];
+  loading = false;
+  page = 0;
+  size = 10;
+  hasMoreData = true;
 
-  constructor(private kayakBookingService: KayakBookingService) {
+  private activeFilters: Record<string, any> = {};
+  private readonly SCROLL_THRESHOLD = 100;
+
+  constructor(private service: KayakBookingService) {}
+
+  onFiltersChanged(filters: Record<string, any>): void {
+    this.resetPagination();
+    this.activeFilters = filters;
+    this.loadPageData();
   }
 
-  fetchFutureTrips(): void {
-    this.isLoading = true;
-    this.errorMessage = null;
-    this.kayakBookingService.getFutureTrips().subscribe({
-      next: (trips: FutureTrip[]) => {
-        this.futureTrips = trips;
-        this.filteredTrips = trips;
-        this.isLoading = false;
+  private fetchTrips(): void {
+    this.service.getFutureTrips(this.activeFilters, this.page, this.size).subscribe({
+      next: (backendResponse: string) => {
+        const responseJSON = this.parseJsonResponse(backendResponse);
+        const newData = responseJSON.data || [];
+        this.updateTableData(newData);
       },
-      error: (error) => {
-        console.error('Błąd podczas pobierania danych:', error);
-        this.errorMessage = 'Nie udało się załadować listy przyszłych wycieczek.';
-        this.isLoading = false;
-      },
+      error: (err) => this.handleError(err),
     });
   }
 
-  applyFilters(filters: any): void {
-    this.filteredTrips = this.futureTrips.filter((trip) => {
-      const matchStartDate =
-        !filters.startDate || new Date(trip.orderDate) >= new Date(filters.startDate);
-      const matchEndDate =
-        !filters.endDate || new Date(trip.orderDate) <= new Date(filters.endDate);
-      const matchPastRegistration =
-        !filters.isPastRegistration || new Date(trip.orderDate) < new Date();
+  loadPageData(): void {
+    if (this.loading || !this.hasMoreData) return;
+    this.loading = true;
+    this.fetchTrips();
+  }
 
-      return matchStartDate && matchEndDate && matchPastRegistration;
-    });
+  @HostListener('window:scroll', [])
+  onScroll(): void {
+    const scrollPosition = window.innerHeight + window.scrollY;
+    const pageHeight = document.body.offsetHeight;
+
+    if (scrollPosition >= pageHeight - this.SCROLL_THRESHOLD && !this.loading) {
+      this.loadPageData();
+    }
+  }
+
+  private resetPagination(): void {
+    this.page = 0;
+    this.tableData = [];
+    this.hasMoreData = true;
+  }
+
+  private updateTableData(newData: any[]): void {
+    this.tableData = [...this.tableData, ...newData];
+    this.hasMoreData = newData.length === this.size;
+    this.page += 1;
+    this.loading = false;
+  }
+
+  private handleError(error: any): void {
+    console.error('Błąd podczas pobierania danych:', error);
+    this.loading = false;
+  }
+
+  private parseJsonResponse(response: string): any {
+    try {
+      return JSON.parse(response);
+    } catch (error) {
+      console.error('Błąd parsowania JSON:', error);
+      return { data: [] };
+    }
   }
 }

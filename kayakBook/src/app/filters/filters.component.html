@@ -5,7 +5,6 @@
       id="startDate"
       type="date"
       [(ngModel)]="startDate"
-      [max]="maxDate"
       class="form-control"
     />
   </div>
@@ -16,7 +15,6 @@
       id="endDate"
       type="date"
       [(ngModel)]="endDate"
-      [max]="maxDate"
       class="form-control"
     />
   </div>
@@ -25,11 +23,11 @@
     <label>
       <input
         type="checkbox"
-        [(ngModel)]="isPastRegistration"
+        [(ngModel)]="isFuture"
       />
-      Rejestracje z przeszłości
+      Tylko rejestracje przyszłe
     </label>
   </div>
 
-  <button (click)="onFetchData()" class="fetch-button">Pobierz dane</button>
+  <button (click)="applyFilters()" class="apply-button">Zastosuj filtry</button>
 </div>

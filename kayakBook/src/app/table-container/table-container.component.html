@@ -9,27 +9,28 @@
       <th (click)="sortData('orderDate')">Data zamówienia</th>
       <th (click)="sortData('kayakOne')">Kajak jednoosobowy</th>
       <th (click)="sortData('kayakTwo')">Kajak dwuosobowy</th>
-      <th (click)="sortData('kayakOne_Two')">Łącznie</th>
+      <th (click)="sortData('kayakOne_Two')">Łącznie kajaki</th>
       <th (click)="sortData('emailSend')">Email wysłany</th>
     </tr>
     </thead>
     <tbody>
-    <ng-container *ngIf="data.length > 0">
+    <ng-container *ngIf="data.length > 0; else noData">
       <tr *ngFor="let row of data">
         <td>{{ row.orderId }}</td>
         <td>{{ row.name }}</td>
         <td>{{ row.email }}</td>
         <td>{{ row.phone }}</td>
-        <td>{{ row.orderDate }}</td>
+        <td>{{ row.orderDate | date: 'yyyy-MM-dd HH:mm' }}</td>
         <td>{{ row.kayakOne }}</td>
         <td>{{ row.kayakTwo }}</td>
         <td>{{ row.kayakOne_Two }}</td>
         <td>{{ row.emailSend ? 'Tak' : 'Nie' }}</td>
       </tr>
     </ng-container>
-    <tr *ngIf="data.length === 0">
-      <td colspan="9" class="empty-row">Brak danych do wyświetlenia</td>
-    </tr>
     </tbody>
   </table>
+
+  <ng-template #noData>
+    <div class="empty-data">Brak danych do wyświetlenia</div>
+  </ng-template>
 </div>

@@ -1,16 +1,17 @@
 <div class="container">
-  <div *ngIf="isLoading" class="loading">
-    <p>Ładowanie danych...</p>
+  <div class="content">
+    <div class="filters-wrapper">
+      <app-filters (filtersChanged)="onFiltersChanged($event)"></app-filters>
+    </div>
+
+    <div class="table-wrapper">
+      <app-table-container [data]="tableData"></app-table-container>
+
+      <div *ngIf="loading" class="loading-more">Ładowanie kolejnych danych...</div>
+
+      <div *ngIf="!hasMoreData && tableData.length > 0" class="all-data-loaded">
+        Wszystkie dane zostały załadowane.
+      </div>
+    </div>
   </div>
-
-  <div *ngIf="errorMessage" class="error">
-    <p>{{ errorMessage }}</p>
-  </div>
-
-  <app-filters
-    (filtersChanged)="applyFilters($event)"
-    (fetchData)="fetchFutureTrips()">
-  </app-filters>
-
-  <app-table-container *ngIf="filteredTrips.length > 0" [data]="filteredTrips"></app-table-container>
 </div>

@@ -11,40 +11,32 @@ import {CommonModule} from '@angular/common';
 export class FiltersComponent implements OnInit {
   startDate: string | null = null;
   endDate: string | null = null;
-  isPastRegistration: boolean = false;
-  maxDate: string = '';
+  isFuture: boolean = true;
 
   @Output() filtersChanged = new EventEmitter<any>();
-  @Output() fetchData = new EventEmitter<void>();
 
   ngOnInit(): void {
-    this.setMaxDate();
   }
 
-  setMaxDate(): void {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = (today.getMonth() + 1).toString().padStart(2, '0');
-    const day = today.getDate().toString().padStart(2, '0');
-    this.maxDate = `${year}-${month}-${day}`;
+  private formatDate(date: string | null): string | null {
+    if (!date) return null;
+    const parsedDate = new Date(date);
+    return parsedDate.toISOString().split('T')[0];
   }
 
   applyFilters(): void {
-    const filters: any = {};
+    const filters: any = {
+      isFuture: this.isFuture,
+      ...(this.startDate ? {startDate: this.formatDate(this.startDate)} : {}),
+      ...(this.endDate ? {endDate: this.formatDate(this.endDate)} : {}),
+    };
 
-    if (this.startDate) {
-      filters.startDate = this.startDate;
+    if (this.startDate && this.endDate && new Date(this.startDate) > new Date(this.endDate)) {
+      console.error('Data końcowa musi być późniejsza lub równa dacie początkowej!');
+      return;
     }
-    if (this.endDate) {
-      filters.endDate = this.endDate;
-    }
 
-    filters.isPastRegistration = this.isPastRegistration;
-
+    console.log('Zastosowane filtry:', filters);
     this.filtersChanged.emit(filters);
-  }
-
-  onFetchData(): void {
-    this.fetchData.emit();
   }
 }

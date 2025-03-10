@@ -1,5 +1,5 @@
 export interface FutureTrip {
-  orderId: string;
+  orderId: number;
   name: string;
   email: string;
   phone: string;
