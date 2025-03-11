@@ -7,6 +7,7 @@ import {
 import express from 'express';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import cors from 'cors'; // Importowanie middleware CORS
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
@@ -14,17 +15,23 @@ const browserDistFolder = resolve(serverDistFolder, '../browser');
 const app = express();
 const angularApp = new AngularNodeAppEngine();
 
-/**
- * Example Express Rest API endpoints can be defined here.
- * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/**', (req, res) => {
- *   // Handle API request
- * });
- * ```
- */
+// Middleware CORS - dodane, aby rozwiązać problem CORS
+app.use(
+  cors({
+    origin: 'http://localhost:4200', // Zezwalaj tylko na połączenia z localhost:4200
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Dozwolone metody HTTP
+    allowedHeaders: ['Content-Type', 'Authorization'], // Dozwolone nagłówki
+    credentials: true, // Zezwalaj na uwierzytelnione żądania (np. cookies lub tokeny)
+  }),
+);
+
+// Ręczna obsługa preflight request w przypadku, gdy middleware CORS nie działa dla metod OPTIONS
+app.options('*', (req, res) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  res.status(204).send();
+});
 
 /**
  * Serve static files from /browser
@@ -36,6 +43,14 @@ app.use(
     redirect: false,
   }),
 );
+
+/**
+ * Example API endpoints (jeśli masz potrzebę dodania REST API)
+ */
+app.post('/api/login', (req, res) => {
+  // Obsługa logowania tutaj
+  res.json({ token: 'example-jwt-token' });
+});
 
 /**
  * Handle all other requests by rendering the Angular application.

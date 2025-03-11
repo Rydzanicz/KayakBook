@@ -1,6 +1,6 @@
 import {Injectable, Injector} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {catchError, Observable, throwError} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -82,4 +82,17 @@ export class KayakBookingService {
       responseType: 'text' as 'json',
     });
   }
+
+  login(username: string, password: string) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = { username, password };
+console.log(body);
+    return this.getHttp().post(`${this.apiUrl}/login`, body, { headers }).pipe(
+      catchError((error) => {
+        console.error('Login error:', error);
+        return throwError(() => new Error('Login failed. Please try again.'));
+      })
+    );
+  }
+
 }
