@@ -69,7 +69,7 @@ export class TransactionDetailsComponent implements OnInit {
     });
   }
 
-  usun() {
+  delete() {
     this.service.deleteTrip(this.futureTrip.orderId.toString()).subscribe({
       next: () => {
         alert('Transakcja została pomyślnie usunięta.');
