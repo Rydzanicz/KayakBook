@@ -59,4 +59,27 @@ export class KayakBookingService {
       responseType: 'text' as 'json',
     });
   }
+
+  updateTransactionDetails(transactionData: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-API-KEY': this.apiKey,
+    });
+    return this.getHttp().put(`${this.apiUrl}/update-order`, transactionData, {
+      headers,
+      responseType: 'text' as 'json',
+    });
+  }
+
+  deleteTrip(id: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-API-KEY': this.apiKey,
+    });
+
+    return this.getHttp().delete(`${this.apiUrl}/delete-order/${id}`, {
+      headers,
+      responseType: 'text' as 'json',
+    });
+  }
 }

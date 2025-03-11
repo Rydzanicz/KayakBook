@@ -1,15 +1,59 @@
 <div class="container">
-    <div class="content">
-        <h2>Szczegóły transakcji</h2>
+  <div class="content">
+    <h2>Szczegóły transakcji</h2>
+    <p>Order ID: {{ futureTrip.orderId }}</p>
+    <p>Name: {{ futureTrip.name }}</p>
+    <p>Email: {{ futureTrip.email }}</p>
+    <p>Phone: {{ futureTrip.phone }}</p>
+    <p>Order Date: {{ futureTrip.orderDate }}</p>
+    <form (ngSubmit)="updateTransaction()">
+      <div class="form-group">
+        <label>Kajaki jednoosobowe:</label>
+        <input
+          type="number"
+          [(ngModel)]="futureTrip.kayakOne"
+          name="kayakOne"
+          min="0"
+          max="16"
+        />
+      </div>
 
-        <p>Order ID: {{ futureTrip.orderId }}</p>
-        <p>Name: {{ futureTrip.name }}</p>
-        <p>Email: {{ futureTrip.email }}</p>
-        <p>Phone: {{ futureTrip.phone }}</p>
-        <p>Order Date: {{ futureTrip.orderDate }}</p>
-        <p>Single Kayak: {{ futureTrip.kayakOne }}</p>
-        <p>Double Kayak: {{ futureTrip.kayakTwo }}</p>
-        <p>Combination Kayak: {{ futureTrip.kayakOne_Two }}</p>
-        <p>Email Sent: {{ futureTrip.emailSend ? 'Yes' : 'No' }}</p>
-    </div>
+      <div class="form-group">
+        <label>Kajaki dwuosobowe:</label>
+        <input
+          type="number"
+          [(ngModel)]="futureTrip.kayakTwo"
+          name="kayakTwo"
+          min="0"
+          max="16"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Kajaki (2+1):</label>
+        <input
+          type="number"
+          [(ngModel)]="futureTrip.kayakOne_Two"
+          name="kayakOne_Two"
+          min="0"
+          max="16"
+        />
+      </div>
+      <label>Wysłano e-mail:</label>
+
+      <div class="form-group">
+        <label>
+          Wysłano e-mail:
+          <input
+            type="checkbox"
+            [(ngModel)]="futureTrip.emailSend"
+            (change)="toggleEmailSend()"
+          />
+        </label>
+      </div>
+      <button class="delete-button" (click)="usun()">Usuń</button>
+      <button class="save-button" type="submit">Zapisz zmiany</button>
+
+    </form>
+  </div>
 </div>
