@@ -15,8 +15,8 @@
     </thead>
     <tbody>
     <ng-container *ngIf="data.length > 0; else noData">
-      <tr *ngFor="let row of data">
-        <td>{{ row.orderId }}</td>
+      <tr *ngFor="let row of data" (click)="onRowClick(row)">
+      <td>{{ row.orderId }}</td>
         <td>{{ row.name }}</td>
         <td>{{ row.email }}</td>
         <td>{{ row.phone }}</td>

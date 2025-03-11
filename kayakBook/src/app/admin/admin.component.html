@@ -5,8 +5,10 @@
     </div>
 
     <div class="table-wrapper">
-      <app-table-container [data]="tableData"></app-table-container>
-
+      <app-table-container
+        [data]="tableData"
+        (rowClicked)="onRowClicked($event)">
+      </app-table-container>
       <div *ngIf="loading" class="loading-more">Ładowanie kolejnych danych...</div>
 
       <div *ngIf="!hasMoreData && tableData.length > 0" class="all-data-loaded">

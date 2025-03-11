@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FutureTrip} from '../models/future-trip.model';
 import {CommonModule, DatePipe} from '@angular/common';
 
@@ -13,8 +13,13 @@ import {CommonModule, DatePipe} from '@angular/common';
 })
 export class TableContainerComponent {
   @Input() data: FutureTrip[] = [];
+  @Output() rowClicked = new EventEmitter<any>();
 
   sortState: { column: string; direction: 'ASC' | 'DESC' } = {column: '', direction: 'ASC'};
+
+  onRowClick(row: any): void {
+    this.rowClicked.emit(row);
+  }
 
   sortData(column: keyof FutureTrip): void {
     if (!this.data || this.data.length === 0) return;

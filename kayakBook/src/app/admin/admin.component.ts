@@ -4,6 +4,7 @@ import {CommonModule} from '@angular/common';
 import {TableContainerComponent} from '../table-container/table-container.component';
 import {FiltersComponent} from '../filters/filters.component';
 import {HttpClientModule} from '@angular/common/http';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -25,11 +26,11 @@ export class AdminComponent {
 
   private activeFilters: any = {};
 
-  constructor(private service: KayakBookingService) {
+  constructor(private service: KayakBookingService, private router: Router) {
   }
 
+
   onFiltersChanged(filters: any): void {
-    console.log('Filtry zostały zmienione:', filters);
     this.page = 0;
     this.activeFilters = filters;
     this.tableData = [];
@@ -47,7 +48,6 @@ export class AdminComponent {
 
     this.service.getFutureTrips(this.activeFilters, this.page, this.size).subscribe({
       next: (response: any) => {
-        console.log('Otrzymano odpowiedź z backendu:', response);
         const parsedResponse = JSON.parse(response);
         const newData = parsedResponse.data || [];
 
@@ -71,5 +71,11 @@ export class AdminComponent {
     if (scrollPosition >= pageHeight - 100 && !this.loading) {
       this.loadPageData();
     }
+  }
+
+  onRowClicked(row: any): void {
+    this.router.navigate(['/transaction', row.orderId], {
+      state: {data: row}
+    });
   }
 }

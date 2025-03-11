@@ -60,3 +60,10 @@ th:hover {
   font-size: 16px;
   padding: 20px;
 }
+tr {
+  cursor: pointer;
+}
+
+tr:hover {
+  background-color: #f5f5f5;
+}

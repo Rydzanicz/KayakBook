@@ -36,7 +36,6 @@ export class FiltersComponent implements OnInit {
       return;
     }
 
-    console.log('Zastosowane filtry:', filters);
     this.filtersChanged.emit(filters);
   }
 }
