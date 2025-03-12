@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {KayakBookingService} from '../../services/kayak-booking.service'; // Import serwisu
+import {KayakBookingService} from '../../services/kayak-booking.service';
 import {FutureTrip} from "../../models/future-trip.model";
 import {CommonModule} from "@angular/common";
 import {HttpClientModule} from "@angular/common/http";
