@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {CommonModule} from '@angular/common';
+import {KayakBookingService} from '../services/kayak-booking.service';
 
 @Component({
   selector: 'app-trace',
@@ -16,20 +17,35 @@ export class TraceComponent implements OnInit {
   availableHours: string[] = [];
   filteredHours: string[] = [];
   selectedDate: string = '';
-
+  tableData: any[] = [];
   traceHours: Record<string, string[]> = {
     Prawiedniki_Zemborzycki: ['9:00', '10:00', '12:30', '14:00', '16:00'],
     Osmolice_Prawiedniki: ['9:30', '10:30', '13:00', '14:30'],
     Osmolice_Zemborzycki: ['9:00', '10:00', '12:30', '14:00', '16:00']
   };
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private service: KayakBookingService, private router: Router) {
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.traceId = params['id'];
       this.availableHours = this.getHoursForTrace(this.traceId);
+    });
+    this.getFutureTrips();
+  }
+
+  getFutureTrips(): void {
+    this.service.getFutureTrips(this.traceId).subscribe({
+      next: (response: any) => {
+        const parsedResponse = JSON.parse(response);
+        const newData = parsedResponse.data || [];
+
+        this.tableData = [...this.tableData, ...newData];
+      },
+      error: (err) => {
+        console.error('Błąd podczas pobierania danych:', err);
+      },
     });
   }
 
@@ -66,6 +82,28 @@ export class TraceComponent implements OnInit {
 
     } else {
       this.filteredHours = [...this.availableHours];
+    }
+    console.log(this.selectedDate);
+    console.log(this.tableData.map(item => item.orderDate.slice(0, 10)));
+
+    if (this.tableData.some(item => item.orderDate.slice(0, 10) === this.selectedDate)) {
+      const hourDate = this.tableData.map(item => {
+        const date = new Date(item.orderDate);
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        return `${hours}:${minutes}`;
+      });
+
+      console.log(hourDate);
+      console.log(this.filteredHours);
+      if (this.filteredHours.length !== 0) {
+        this.filteredHours = this.filteredHours.filter(hour => {
+          return !hourDate.includes(hour);
+        });
+      }
+
+      console.log(hourDate);
+      console.log(this.filteredHours);
     }
   }
 

@@ -46,7 +46,7 @@ export class AdminComponent {
 
     this.loading = true;
 
-    this.service.getFutureTrips(this.activeFilters, this.page, this.size).subscribe({
+    this.service.getTrips(this.activeFilters, this.page, this.size).subscribe({
       next: (response: any) => {
         const parsedResponse = JSON.parse(response);
         const newData = parsedResponse.data || [];

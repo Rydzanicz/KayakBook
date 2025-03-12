@@ -32,7 +32,7 @@ export class TransactionDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private service: KayakBookingService // Serwis
+    private service: KayakBookingService
   ) {
   }
 

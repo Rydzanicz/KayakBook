@@ -33,7 +33,22 @@ export class KayakBookingService {
         });
     }
 
-    getFutureTrips(filters: any, page: number, size: number): Observable<any> {
+    getFutureTrips(typeTrace: string): Observable<any> {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'X-API-KEY': this.apiKey,
+        });
+
+        const params = new HttpParams().set('typeTrace', typeTrace);
+
+        return this.getHttp().get(`${this.apiUrl}/get-future-trips`, {
+            headers,
+            params,
+            responseType: 'text' as 'json',
+        });
+    }
+
+    getTrips(filters: any, page: number, size: number): Observable<any> {
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'X-API-KEY': this.apiKey,
@@ -53,7 +68,7 @@ export class KayakBookingService {
             params = params.set('isFuture', filters.isFuture.toString());
         }
 
-        return this.getHttp().get(`${this.apiUrl}/get-future-trips`, {
+        return this.getHttp().get(`${this.apiUrl}/get-trips`, {
             headers,
             params,
             responseType: 'text' as 'json',
