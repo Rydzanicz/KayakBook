@@ -10,7 +10,6 @@ import {SummaryComponent} from './summary/summary.component';
 import {AdminComponent} from './admin/admin.component';
 import {TransactionDetailsComponent} from './admin/transaction-details/transaction-details.component';
 import {LoginComponent} from './login/login.component';
-import {AuthGuard} from './guards/auth.guard';
 
 export const routes: Routes = [
   {path: '', component: BodyComponent},
@@ -21,7 +20,7 @@ export const routes: Routes = [
   {path: 'trace/:id', component: TraceComponent},
   {path: 'kajak/:id/:hour', component: KajakComponent},
   {path: 'summary', component: SummaryComponent},
-  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
+  {path: 'admin', component: AdminComponent},
   {path: 'login', component: LoginComponent},
   {path: '**', redirectTo: '', pathMatch: 'full'}
 ];

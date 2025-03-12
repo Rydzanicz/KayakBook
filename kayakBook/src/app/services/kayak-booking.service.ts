@@ -83,16 +83,25 @@ export class KayakBookingService {
     });
   }
 
-  login(username: string, password: string) {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const body = { username, password };
-console.log(body);
-    return this.getHttp().post(`${this.apiUrl}/login`, body, { headers }).pipe(
-      catchError((error) => {
-        console.error('Login error:', error);
-        return throwError(() => new Error('Login failed. Please try again.'));
-      })
+  login(username: string, password: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-API-KEY': this.apiKey,
+    });
+    const params = new HttpParams()
+        .set('username', username)
+        .set('password', password);
+
+    // responseType ustawione na 'text', aby odbierać zwykłą odpowiedź tekstową
+    return this.getHttp().post(`${this.apiUrl}/login`, null, {
+      headers,
+      params,
+      responseType: 'text'
+    }).pipe(
+        catchError((error) => {
+          console.error('Login error:', error);
+          return throwError(() => new Error('Login failed. Please try again.'));
+        })
     );
   }
-
 }
