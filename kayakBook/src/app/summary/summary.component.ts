@@ -75,6 +75,7 @@ export class SummaryComponent {
     this.kayakBookingService.sendBuyerData(orderData).subscribe({
       next: response => {
         alert('Zamówienie zostało zapisane!');
+        this.router.navigate(['/']);
       },
       error: error => {
         alert('Wystąpił błąd przy zapisywaniu zamówienia.');
