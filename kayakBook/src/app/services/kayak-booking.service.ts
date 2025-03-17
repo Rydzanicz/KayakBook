@@ -118,4 +118,24 @@ export class KayakBookingService {
             })
         );
     }
+
+    onResetPassword(username: string): Observable<any> {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'X-API-KEY': this.apiKey,
+        });
+        const params = new HttpParams()
+            .set('username', username);
+
+        return this.getHttp().post(`${this.apiUrl}/reset`, null, {
+            headers,
+            params,
+            responseType: 'text'
+        }).pipe(
+            catchError((error) => {
+                console.error('Login error:', error);
+                return throwError(() => new Error('Reset failed. Please try again.'));
+            })
+        );
+    }
 }

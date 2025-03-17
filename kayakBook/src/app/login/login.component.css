@@ -82,3 +82,19 @@ button.login-button:disabled {
   color: red;
   font-weight: bold;
 }
+
+.reset-password-button {
+  margin-top: 1rem;
+  background-color: #f0ad4e;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.reset-password-button:hover {
+  background-color: #ec971f;
+}

@@ -13,5 +13,7 @@
       <button type="submit" class="login-button" [disabled]="loginForm.invalid">Zaloguj się</button>
     </form>
     <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+    <button type="button" class="reset-password-button" (click)="onResetPassword()">Resetuj hasło</button>
   </div>
 </div>
