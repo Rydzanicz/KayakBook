@@ -1,15 +1,24 @@
+<div class="gallery-container">
+  <div class="gallery" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+    <div class="gallery-slide" *ngFor="let image of galleryImages">
+      <img [src]="image" alt="Gallery Image" />
+    </div>
+  </div>
+  <button class="prev-button" (click)="prevImage()">&#10094;</button>
+  <button class="next-button" (click)="nextImage()">&#10095;</button>
+</div>
+
 <div class="container">
   <div class="content">
-    <img src="assets/auto.png" alt="Auto" class="image"/>
-    <p class="title">Zapraszamy na przygodę i możliwość wybrania jednej z trzech tras!</p>
-
+    <p class="title">Zapraszamy na spływy kajakowe po najpiękniejszych rzekach  Lubelszczyzny</p>
     <div class="routes">
       <button
         class="route btn"
         *ngFor="let trace of traces"
         [routerLink]="['/trace', trace.id]"
-        [attr.aria-label]="'Navigate to route ' + trace.id">
-        Trasa  {{ trace.description }}
+        [attr.aria-label]="'Navigate to route ' + trace.id"
+      >
+        Trasa {{ trace.description }}
       </button>
     </div>
   </div>
