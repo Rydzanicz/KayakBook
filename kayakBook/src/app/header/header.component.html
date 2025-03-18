@@ -1,7 +1,39 @@
-<header>
-  <div class="logo" (click)="navigateToBody()" style="cursor: pointer;">
-    <span class="material-icons">home</span>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<header class="container">
+  <div class="logo" (click)="navigateToBody()">
+    <img src="assets/Logo.png" alt="Logo"/>
   </div>
-  <div class="shop-name">KAJAKI lublin.pl</div>
+
+  <div class="header-content">
+    <div class="header-top">
+      <div class="shop-name">KAJAKI LUBLIN.PL</div>
+
+      <div class="contact-items">
+        <div class="contact-item">
+          <a href="tel:+48660826302" class="icon-link">
+            <i class="fas fa-phone"></i>
+          </a>
+        </div>
+
+        <div class="contact-item">
+          <a href="https://facebook.com/KajakiLublin"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="icon-link">
+            <i class="fab fa-facebook"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <nav class="navigation">
+      <ul>
+        <li><a href="#o-nas">O nas</a></li>
+        <li><a href="#splywy">Spływy kajakowe</a></li>
+        <li><a href="#rzeki">Rzeki</a></li>
+        <li><a href="#wypozyczalnia">Wypożyczalnia</a></li>
+        <li><a href="#szkolenia">Szkolenia</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>

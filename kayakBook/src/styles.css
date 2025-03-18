@@ -8,7 +8,6 @@ body {
 }
 
 header {
-  background-color: #bc0a0a;
   padding: 20px;
   text-align: center;
   font-size: 2.5rem;
@@ -100,7 +99,6 @@ hr {
 
 img {
   max-width: 100%;
-  border: 3px solid #bc0a0a;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
