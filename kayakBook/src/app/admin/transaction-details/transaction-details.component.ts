@@ -54,7 +54,7 @@ export class TransactionDetailsComponent implements OnInit {
       kayakOne: this.futureTrip.kayakOne,
       kayakTwo: this.futureTrip.kayakTwo,
       kayakOne_Two: this.futureTrip.kayakOne_Two,
-      emailSend: this.futureTrip.emailSend,
+      emailSend: false,
     };
 
     this.service.updateTransactionDetails(updatedData).subscribe({
@@ -65,6 +65,19 @@ export class TransactionDetailsComponent implements OnInit {
       error: (err) => {
         console.error('Wystąpił błąd podczas aktualizacji danych:', err);
         alert('Wystąpił błąd podczas aktualizacji danych. Proszę spróbować ponownie.');
+      }
+    });
+  }
+
+  onResetEmail(): void {
+    this.service.resetEmail(this.futureTrip.orderId.toString()).subscribe({
+      next: () => {
+        alert('Email została ponownie wysłany.');
+        window.location.href = '/admin';
+      },
+      error: (err) => {
+        console.error('Wystąpił błąd podczas usuwania transakcji:', err);
+        alert('Wystąpił błąd podczas resetu. Proszę spróbować ponownie.');
       }
     });
   }
@@ -80,9 +93,5 @@ export class TransactionDetailsComponent implements OnInit {
         alert('Wystąpił błąd podczas usuwania transakcji. Proszę spróbować ponownie.');
       }
     });
-  }
-
-  toggleEmailSend(): void {
-    this.futureTrip.emailSend = !this.futureTrip.emailSend;
   }
 }

@@ -6,7 +6,9 @@
     <p>Email: {{ futureTrip.email }}</p>
     <p>Phone: {{ futureTrip.phone }}</p>
     <p>Order Date: {{ futureTrip.orderDate }}</p>
-    <form (ngSubmit)="updateTransaction()">
+    <p>Email wysłany: {{ futureTrip.emailSend ? 'Tak' : 'Nie' }}</p>
+
+    <form>
       <div class="form-group">
         <label>Kajaki jednoosobowe:</label>
         <input
@@ -39,20 +41,9 @@
           max="16"
         />
       </div>
-      <label>Wysłano e-mail:</label>
-
-      <div class="form-group">
-        <label>
-          Wysłano e-mail:
-          <input
-            type="checkbox"
-            [(ngModel)]="futureTrip.emailSend"
-            (change)="toggleEmailSend()"
-          />
-        </label>
-      </div>
+      <button class="reset-button" (click)="onResetEmail()">Reset Email</button>
       <button class="delete-button" (click)="delete()">Usuń</button>
-      <button class="save-button" type="submit">Zapisz zmiany</button>
+      <button class="save-button" (click)="updateTransaction()">Zapisz zmiany</button>
 
     </form>
   </div>

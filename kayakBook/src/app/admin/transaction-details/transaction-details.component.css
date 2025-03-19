@@ -167,3 +167,26 @@ button.save-button:active {
   background-color: #bd2130;
   transform: scale(0.98);
 }
+
+.reset-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #13c651;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.reset-button:hover {
+  background-color: #059c3a;
+}
+
+.reset-button:active {
+  background-color: #13c651;
+  transform: scale(0.98);
+}
+
