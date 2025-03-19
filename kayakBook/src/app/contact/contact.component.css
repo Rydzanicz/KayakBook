@@ -100,15 +100,6 @@
   color: #3bb9ec;
 }
 
-.banner {
-  background: linear-gradient(90deg, #0c63a6, #3bb9ec, #a1cd3a) !important;
-  color: white;
-  text-align: left;
-  padding: 20px 0;
-  padding-left: 15%;
-}
-
-/* Responsywność dla mniejszych ekranów */
 @media (max-width: 768px) {
   .content {
     padding-left: 10%;

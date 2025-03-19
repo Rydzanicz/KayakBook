@@ -1,29 +1,42 @@
+<div class="banner">
+  <h1>Termin</h1>
+</div>
+
 <div class="container">
   <button class="back-btn" routerLink="/">
     <span class="material-icons">arrow_back</span>
   </button>
+
   <div class="content">
     <h2>Informacje o trasie</h2>
     <p>Wybrano trasę o ID: <strong>{{ traceId }}</strong></p>
 
-    <div>
-      <label for="datePicker"><strong>Wybierz datę:</strong></label>
-      <input
-        id="datePicker"
-        type="date"
-        [min]="minDate()"
-        [value]="selectedDate"
-        (change)="onDateChange($event)">
-    </div>
+    <div class="selection-and-image">
+      <div class="selection">
+        <div>
+          <label for="datePicker"><strong>Wybierz datę:</strong></label>
+          <input
+            id="datePicker"
+            type="date"
+            [min]="minDate()"
+            [value]="selectedDate"
+            (change)="onDateChange($event)">
+        </div>
 
-    <p><strong>Dostępne godziny:</strong></p>
-    <div class="hours">
-      <button
-        *ngFor="let hour of filteredHours"
-        class="hour"
-        (click)="goToKajak(hour)">
-        {{ hour }}
-      </button>
+        <p><strong>Dostępne godziny:</strong></p>
+        <div class="hours">
+          <button
+            *ngFor="let hour of filteredHours"
+            class="hour"
+            (click)="goToKajak(hour)">
+            {{ hour }}
+          </button>
+        </div>
+      </div>
+
+      <div class="image">
+        <img src="assets/dron.png" alt="Zdjęcie trasy" class="about-image">
+      </div>
     </div>
   </div>
 </div>
