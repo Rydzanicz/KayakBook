@@ -68,3 +68,13 @@ footer .social-icons i:active {
   background-color: #8e060f;
   transform: scale(0.9);
 }
+
+footer .footer-rights {
+  margin-top: 10px;
+}
+
+footer .footer-rights p {
+  font-size: 12px;
+  color: #999999;
+  margin: 0;
+}
