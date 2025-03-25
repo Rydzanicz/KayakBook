@@ -7,6 +7,7 @@ import {FooterComponent} from './footer/footer.component';
 import {AboutComponent} from './about/about.component';
 import {AppRoutingModule} from './app.routes';
 import {HttpClientModule} from '@angular/common/http';
+import {TrainingComponent} from './training/training.component';
 
 @NgModule({
   declarations: [],
@@ -17,6 +18,7 @@ import {HttpClientModule} from '@angular/common/http';
     ContactComponent,
     AppComponent,
     FooterComponent,
+    TrainingComponent,
     HttpClientModule
   ],
   providers: [],

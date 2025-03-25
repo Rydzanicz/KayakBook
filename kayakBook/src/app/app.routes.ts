@@ -10,11 +10,13 @@ import {AdminComponent} from './admin/admin.component';
 import {TransactionDetailsComponent} from './admin/transaction-details/transaction-details.component';
 import {LoginComponent} from './login/login.component';
 import {AuthGuard} from './services/AuthGuard';
+import {TrainingComponent} from './training/training.component';
 
 export const routes: Routes = [
   {path: '', component: BodyComponent},
   {path: 'about', component: AboutComponent},
   {path: 'contact', component: ContactComponent},
+  {path: 'training', component: TrainingComponent},
   {path: 'transaction/:id', component: TransactionDetailsComponent, canActivate: [AuthGuard]},
   {path: 'trace/:id', component: TraceComponent},
   {path: 'kajak/:id/:hour', component: KajakComponent},
