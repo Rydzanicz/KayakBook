@@ -11,12 +11,14 @@ import {TransactionDetailsComponent} from './admin/transaction-details/transacti
 import {LoginComponent} from './login/login.component';
 import {AuthGuard} from './services/AuthGuard';
 import {TrainingComponent} from './training/training.component';
+import {KayakRentalComponent} from './kayak-rental/kayak-rental.component';
 
 export const routes: Routes = [
   {path: '', component: BodyComponent},
   {path: 'about', component: AboutComponent},
   {path: 'contact', component: ContactComponent},
   {path: 'training', component: TrainingComponent},
+  {path: 'kayakRental', component: KayakRentalComponent},
   {path: 'transaction/:id', component: TransactionDetailsComponent, canActivate: [AuthGuard]},
   {path: 'trace/:id', component: TraceComponent},
   {path: 'kajak/:id/:hour', component: KajakComponent},
