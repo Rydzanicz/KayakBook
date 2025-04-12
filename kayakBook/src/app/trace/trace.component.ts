@@ -19,9 +19,9 @@ export class TraceComponent implements OnInit {
   selectedDate: string = '';
   tableData: any[] = [];
   traceHours: Record<string, string[]> = {
-    Prawiedniki_Zemborzycki: ['9:00', '10:00', '12:30', '14:00', '16:00'],
-    Osmolice_Prawiedniki: ['9:30', '10:30', '13:00', '14:30'],
-    Osmolice_Zemborzycki: ['9:00', '10:00', '12:30', '14:00', '16:00']
+    Prawiedniki_Zemborzycki: ['09:00', '10:00', '12:30', '14:00', '16:00'],
+    Osmolice_Prawiedniki: ['09:30', '10:30', '13:00', '14:30'],
+    Osmolice_Zemborzycki: ['09:00', '10:00', '12:30', '14:00', '16:00']
   };
 
   constructor(private route: ActivatedRoute, private service: KayakBookingService, private router: Router) {
